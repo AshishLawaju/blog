@@ -1,13 +1,21 @@
-const mongoose = require ('mongoose');
-const blogSchema = mongoose.Schema({
-    title: {
+import mongoose , {model} from "mongoose" ;
+
+type blogTypes = {
+    title: string,
+    content: string,
+    author: string,
+    tags: [string]
+};
+
+const blogSchema = new mongoose.Schema<blogTypes>({
+    title:{
         type: String,
         required: true
     },
     content: {
-        type: String,
-        required: true
-    },
+                type: String,
+                required: true
+            },
     author: {
         type: String,
         required: true
@@ -16,9 +24,9 @@ const blogSchema = mongoose.Schema({
         type: [String]
     }
 },{
-    timestamps: true
-})
+    timestamps : true
+}
+)
 
-
-const Blog = mongoose.model('Blog',blogSchema);
-module.exports = Blog; 
+const Blog = model<blogTypes>("blog",blogSchema);
+export { Blog } ;
