@@ -1,6 +1,6 @@
 import mongoose, { model } from "mongoose";
 
-type adminTypes = {
+export type adminTypes = {
   email: string;
   passwordHash: string;
 };
