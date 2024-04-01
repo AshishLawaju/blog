@@ -88,3 +88,8 @@ const login = (req:Request, res:Response, next:NextFunction) => {
     })
     .catch((err) => next(err));
 };
+
+
+
+
+export {login,register}
