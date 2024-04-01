@@ -17,6 +17,6 @@ const adminSchema = new mongoose.Schema<adminTypes>(
   { timestamps: true }
 );
 
-const Admin = model<adminTypes>("admin", adminSchema);
+const adminModel = model<adminTypes>("admin", adminSchema);
 
-export { Admin };
+export { adminModel };

@@ -5,15 +5,15 @@ import mongoose,{model} from "mongoose";
 type userTypes={
     email: string,
     passwordHash: string,
-    googleId: String,
-    facebookId: String,
+    googleId: string,
+    facebookId: string
     lastGithubPushDate: Date,
-    githubId: String,
-    githubAccessTokenHash: String,
-    profilePicture: String,
-    username: String,
-    refreshToken: String,
-    resetPin: String,
+    githubId: string,
+    githubAccessTokenHash: string,
+    profilePicture: string,
+    username: string,
+    refreshToken: string,
+    resetPin: string,
     resetPinExpiration: Date,
 }
 
@@ -38,5 +38,5 @@ const userSchema = new mongoose.Schema<userTypes>({
     resetPinExpiration: String
 })
 
-const User = model<userTypes>("user",userSchema);
-export{ User };
+const userModel = model<userTypes>("user",userSchema);
+export{ userModel };
