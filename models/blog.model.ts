@@ -4,7 +4,7 @@ type blogTypes = {
     title: string,
     content: string,
     author: string,
-    tags: [string]
+    tags: string[]
 };
 
 const blogSchema = new mongoose.Schema<blogTypes>({

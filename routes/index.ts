@@ -5,6 +5,6 @@ const mainRouter = Router();
 mainRouter.get("/", (req, res) => {
   res.send("wo wo wold");
 });
-mainRouter.use("")
+mainRouter.use("");
 
 export default mainRouter;
