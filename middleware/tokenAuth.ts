@@ -36,7 +36,7 @@ const adminScope = (req: any, res: Response, next: NextFunction) => {
 const verifyToken = (req: any, res: Response, next: NextFunction) => {
   let id: string;
   try {
-    let { id: userId } = jwt.verify(
+    let { id: userId }  = jwt.verify(
       req.token,
       process.env.ACCESS_SECRET as string
     ) as {
@@ -47,7 +47,7 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
     console.log(e);
     return res.status(StatusCodes.FORBIDDEN).json({ error: "Invalid Token!" });
   }
-  console.log(id);
+  // console.log(id);
   if (!id) {
     return res.status(401).json({
       message: "Invalid Token!",
@@ -57,7 +57,7 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
   next();
 };
 
-module.exports = {
+export {
   tokenExtractor,
   adminScope,
   verifyToken,
