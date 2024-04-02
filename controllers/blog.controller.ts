@@ -91,6 +91,50 @@ const likeBlog = async (req: any, res: Response, next: NextFunction) => {
         .json({ success: false, message: "Blog not found !" });
     }
 
+}
+const blogAll = async (req:Request,res:Response,next:NextFunction)=>{
+    const { title, content, author, tags } = req.body;
+    try{
+        const getAllBlog = await Blog.find({});
+        if(getAllBlog.length>0)
+        {
+            return res.status(200).json(getAllBlog);
+        }
+        else{
+            return res.status(404).json({message: "No blogs to show"});
+        }
+        
+    }
+    catch(error){
+        console.log("Error: ",error);
+        return res.status(403).json("Error")
+    }
+    
+
+}
+
+const usersBlog = async (req:Request,res:Response,next:NextFunction)=>{
+    const{title,content,author,tags} = req.body;
+    const userID = req.params.id;
+    try{
+        const userBlogs = await Blog.find({author: userID});
+        if(userBlogs.length>0)
+        {
+            return res.status(200).json(userBlogs);
+        }
+        else{
+            return res.status(404).json({message: "No blogs created by the user"});
+        }
+    }
+    catch(error)
+    {
+        console.log("Error: ",error);
+        return res.status(403).json({message:"Error occured"});
+    }
+}
+=======
+
+
     // console.log(checkIfBlogExist.author);
 
     const checkPreLike = await Blog.findOne({
@@ -165,6 +209,13 @@ const removeLikeBlog = async (req: any, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+
+
+export {blogCreate};
+export {blogUpdate};
+export {blogDelete};
+export {blogAll};
+export {usersBlog};
 
 export { blogCreate, likeBlog };
 export { blogUpdate  ,removeLikeBlog};
