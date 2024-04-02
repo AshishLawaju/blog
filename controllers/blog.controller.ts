@@ -63,8 +63,50 @@ const blogDelete = async (req:Request,res:Response,next:NextFunction)=>{
         return res.status(500).json({message: "An error occured while deleting blog"})
     }
 }
+const blogAll = async (req:Request,res:Response,next:NextFunction)=>{
+    const { title, content, author, tags } = req.body;
+    try{
+        const getAllBlog = await Blog.find({});
+        if(getAllBlog.length>0)
+        {
+            return res.status(200).json(getAllBlog);
+        }
+        else{
+            return res.status(404).json({message: "No blogs to show"});
+        }
+        
+    }
+    catch(error){
+        console.log("Error: ",error);
+        return res.status(403).json("Error")
+    }
+    
+
+}
+
+const usersBlog = async (req:Request,res:Response,next:NextFunction)=>{
+    const{title,content,author,tags} = req.body;
+    const userID = req.params.id;
+    try{
+        const userBlogs = await Blog.find({author: userID});
+        if(userBlogs.length>0)
+        {
+            return res.status(200).json(userBlogs);
+        }
+        else{
+            return res.status(404).json({message: "No blogs created by the user"});
+        }
+    }
+    catch(error)
+    {
+        console.log("Error: ",error);
+        return res.status(403).json({message:"Error occured"});
+    }
+}
 
 
 export {blogCreate};
 export {blogUpdate};
 export {blogDelete};
+export {blogAll};
+export {usersBlog};
