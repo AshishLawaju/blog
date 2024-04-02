@@ -5,7 +5,7 @@ import { userModel } from "../models/user.model";
 const blogCreate = async (req: any, res: Response, next: NextFunction) => {
   try {
     const { title, content, tags } = req.body;
-//confilt
+
     if (!title || !content || !tags) {
       return res.status(400).json({
         success: false,
