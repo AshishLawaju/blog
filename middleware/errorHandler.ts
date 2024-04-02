@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { login } from "../controllers/admin.controller";
 
 const errorHandlerMiddleware = (
   error: any,
@@ -6,6 +7,13 @@ const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log({ ...error });
+
+  if (error.name == "CastError" && error.kind == "ObjectId") {
+    return res
+      .status(401)
+      .json({ success: false, message: `invalid id : ${error.stringValue}  ` });
+  }
   if (error.name == "TokenExpiredError") {
     return res.status(401).json({ success: false, message: "token expired !" });
   }
