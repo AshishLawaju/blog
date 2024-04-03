@@ -5,7 +5,7 @@ import { userModel } from "../models/user.model";
 const blogCreate = async (req: any, res: Response, next: NextFunction) => {
   try {
     const { title, content, tags } = req.body;
-//confilt
+    //confilt
     if (!title || !content || !tags) {
       return res.status(400).json({
         success: false,
@@ -81,51 +81,36 @@ const blogDelete = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-
-
-const blogAll = async (req:Request,res:Response,next:NextFunction)=>{
+const blogAll = async (req: Request, res: Response, next: NextFunction) => {
   const { title, content, author, tags } = req.body;
-  try{
-      const getAllBlog = await Blog.find({});
-      if(getAllBlog.length>0)
-      {
-          return res.status(200).json(getAllBlog);
-      }
-      else{
-          return res.status(404).json({message: "No blogs to show"});
-      }
-      
+  try {
+    const getAllBlog = await Blog.find({});
+    if (getAllBlog.length > 0) {
+      return res.status(200).json(getAllBlog);
+    } else {
+      return res.status(404).json({ message: "No blogs to show" });
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    return res.status(403).json("Error");
   }
-  catch(error){
-      console.log("Error: ",error);
-      return res.status(403).json("Error")
-  }
-  
+};
 
-}
-
-const usersBlog = async (req:Request,res:Response,next:NextFunction)=>{
-  const{title,content,author,tags} = req.body;
+const usersBlog = async (req: Request, res: Response, next: NextFunction) => {
+  const { title, content, author, tags } = req.body;
   const userID = req.params.id;
-  try{
-      const userBlogs = await Blog.find({author: userID});
-      if(userBlogs.length>0)
-      {
-          return res.status(200).json(userBlogs);
-      }
-      else{
-          return res.status(404).json({message: "No blogs created by the user"});
-      }
+  try {
+    const userBlogs = await Blog.find({ author: userID });
+    if (userBlogs.length > 0) {
+      return res.status(200).json(userBlogs);
+    } else {
+      return res.status(404).json({ message: "No blogs created by the user" });
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    return res.status(403).json({ message: "Error occured" });
   }
-  catch(error)
-  {
-      console.log("Error: ",error);
-      return res.status(403).json({message:"Error occured"});
-  }
-}
-
-
-
+};
 
 //like
 
@@ -145,8 +130,6 @@ const likeBlog = async (req: any, res: Response, next: NextFunction) => {
       _id: req.params.blogId,
       like: req.user.id,
     });
-
-   
 
     if (checkPreLike) {
       return res.json({ success: false, message: "like already exists" });
@@ -188,8 +171,6 @@ const removeLikeBlog = async (req: any, res: Response, next: NextFunction) => {
       like: req.user.id,
     });
 
-   
-
     if (!checkPreLike) {
       return res.json({ success: false, message: "like doesnot exists" });
     }
@@ -215,5 +196,7 @@ const removeLikeBlog = async (req: any, res: Response, next: NextFunction) => {
 };
 
 export { blogCreate, likeBlog };
-export { blogUpdate  ,removeLikeBlog};
-export { blogDelete ,usersBlog ,blogAll};
+export { blogUpdate, removeLikeBlog };
+export { blogDelete, usersBlog, blogAll };
+
+//fix all
